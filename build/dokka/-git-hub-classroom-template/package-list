@@ -1,0 +1,28 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:controllers////PointingToDeclaration/-git-hub-classroom-template/controllers/index.html
+$dokka.location:controllers/MainKt///PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/index.html
+$dokka.location:controllers/MainKt/abrirScanner/#/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/abrir-scanner.html
+$dokka.location:controllers/MainKt/calcularPrecio/#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/calcular-precio.html
+$dokka.location:controllers/MainKt/cerrarScanner/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/cerrar-scanner.html
+$dokka.location:controllers/MainKt/imprimirTiquet/#kotlin.String#kotlin.Int#kotlin.Int#kotlin.Double/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/imprimir-tiquet.html
+$dokka.location:controllers/MainKt/iniciarMaquinaDeBilletes/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/iniciar-maquina-de-billetes.html
+$dokka.location:controllers/MainKt/main/#/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/main.html
+$dokka.location:controllers/MainKt/realizarPago/#java.util.Scanner#kotlin.Double/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/realizar-pago.html
+$dokka.location:controllers/MainKt/seleccionarNumeroDeBilletes/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/seleccionar-numero-de-billetes.html
+$dokka.location:controllers/MainKt/seleccionarTipoDeBillete/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/seleccionar-tipo-de-billete.html
+$dokka.location:controllers/MainKt/seleccionarZonas/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/controllers/-main-kt/seleccionar-zonas.html
+$dokka.location:interfaces////PointingToDeclaration/-git-hub-classroom-template/interfaces/index.html
+$dokka.location:interfaces/MyInterface///PointingToDeclaration/-git-hub-classroom-template/interfaces/-my-interface/index.html
+$dokka.location:models////PointingToDeclaration/-git-hub-classroom-template/models/index.html
+$dokka.location:models/MyModel///PointingToDeclaration/-git-hub-classroom-template/models/-my-model/index.html
+$dokka.location:models/MyModel/MyModel/#/PointingToDeclaration/-git-hub-classroom-template/models/-my-model/-my-model.html
+$dokka.location:models/MyModel/function/#/PointingToDeclaration/-git-hub-classroom-template/models/-my-model/function.html
+$dokka.location:utilities////PointingToDeclaration/-git-hub-classroom-template/utilities/index.html
+$dokka.location:utilities/MyUtilsKt///PointingToDeclaration/-git-hub-classroom-template/utilities/-my-utils-kt/index.html
+$dokka.location:utilities/MyUtilsKt/readSomething/#/PointingToDeclaration/-git-hub-classroom-template/utilities/-my-utils-kt/read-something.html
+controllers
+interfaces
+models
+utilities
+
