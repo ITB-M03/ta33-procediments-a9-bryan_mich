@@ -1,148 +1,187 @@
 import java.util.Scanner
 
 fun main() {
-    val scanner = abrirScanner() // Abrir el scanner
-    var continuar = true
+    val scanner = abrirScanner()
+    gestionarMaquina(scanner)
+    cerrarScanner(scanner)
+}
 
-    while (continuar) {
-        continuar = iniciarMaquinaDeBilletes(scanner) // Iniciar la máquina para cada nueva compra
+/**
+ * Funcion para gestionar la máquina
+ * @author Mich
+ * @version 1.0
+ */
+fun gestionarMaquina(scanner: Scanner) {
+    println("¡Bienvenido a la máquina de billetes!")
+    var maquinaActiva = true
+
+    while (maquinaActiva) {
+        // Solicitar el código del operario o continuar sin código
+        println("\nIntroduce el código de operario o pulsa Enter para continuar:")
+        val entrada = scanner.nextLine().trim()
+
+        // Si el código es correcto, detener la máquina
+        if (entrada == "4321") {
+            println("Código correcto. La máquina de billetes detendrá su funcionamiento.")
+            maquinaActiva = false
+        } else {
+            // Si el código es incorrecto o no se introduce, iniciar el proceso de venta de billetes
+            iniciarMaquinaDeBilletes(scanner)
+            println("\nPreparada para el siguiente usuario...\n")
+        }
     }
-
-    cerrarScanner(scanner) // Cerrar el scanner
 }
 
 // Función para abrir el scanner
-fun abrirScanner(): Scanner {
-    return Scanner(System.`in`)
-}
+fun abrirScanner(): Scanner = Scanner(System.`in`)
 
 // Función para cerrar el scanner
-fun cerrarScanner(scanner: Scanner) {
-    scanner.close()
-}
+fun cerrarScanner(scanner: Scanner) = scanner.close()
 
-// Función que contiene el bucle principal de la máquina de billetes
-fun iniciarMaquinaDeBilletes(scanner: Scanner): Boolean {
+/**
+ * Funcion para iniciar la Máquina de billetes de metro ITB
+ * @author Mich-Bryan
+ * @version 2.0
+ */
+fun iniciarMaquinaDeBilletes(scanner: Scanner) {
     var tipoDeBillete: String? = null
-    var zonas: Int
-    var numBilletes: Int
-    var precioTotal: Double
-    var pagoRealizado: Boolean = false  // Inicializamos la variable en false
+    var zonas: Int? = null
+    var numBilletes: Int? = null
+    var precioTotal: Double? = null
 
-    // Selección del tipo de billete
-    tipoDeBillete = seleccionarTipoDeBillete(scanner)
+    var pasoActual = 1
+    var operacionActiva = true
 
-    if (tipoDeBillete == null) {
-        println("Operación cancelada. Volviendo al inicio.")
-        return true  // Volver a iniciar la máquina si se regresa al inicio
-    }
+    while (operacionActiva) {
+        when (pasoActual) {
+            1 -> {
+                tipoDeBillete = seleccionarTipoDeBillete(scanner, tipoDeBillete)
+                if (tipoDeBillete == null) {
+                    println("¿Quieres finalizar? (si/no)")
+                    if (scanner.nextLine().trim().equals("si", ignoreCase = true)) {
+                        operacionActiva = false
+                    }
+                } else {
+                    pasoActual = 2
+                }
+            }
 
-    // Selección de zonas
-    zonas = seleccionarZonas(scanner)
-    if (zonas == -1) {
-        println("Volviendo al paso anterior...")
-        return true  // Si el usuario quiere volver al paso anterior, se vuelve a seleccionar el tipo de billete
-    }
+            2 -> {
+                zonas = seleccionarZonas(scanner, zonas)
+                if (zonas == -1) {
+                    println("Volviendo al paso anterior...")
+                    pasoActual = 1
+                } else {
+                    pasoActual = 3
+                }
+            }
 
-    // Selección de número de billetes
-    numBilletes = seleccionarNumeroDeBilletes(scanner)
+            3 -> {
+                numBilletes = seleccionarNumeroDeBilletes(scanner, numBilletes)
+                if (numBilletes == -1) {
+                    println("Volviendo al paso anterior...")
+                    pasoActual = 2
+                } else {
+                    pasoActual = 4
+                }
+            }
 
-    // Cálculo de precio total
-    precioTotal = calcularPrecio(tipoDeBillete, zonas, numBilletes)
-    println("Precio total: %.2f€".format(precioTotal))
+            4 -> {
+                precioTotal = calcularPrecio(tipoDeBillete!!, zonas!!, numBilletes!!)
+                println("Precio total: %.2f€".format(precioTotal))
+                val pagoRealizado = realizarPago(scanner, precioTotal)
+                if (!pagoRealizado) {
+                    println("Pago cancelado o insuficiente. Volviendo al inicio del proceso...")
+                    operacionActiva = false
+                } else {
+                    pasoActual = 5
+                }
+            }
 
-    // Realizar pago
-    pagoRealizado = realizarPago(scanner, precioTotal)
-
-    if (pagoRealizado) {
-        println("\n¡Compra realizada correctamente!\n")
-    } else {
-        println("Pago cancelado o insuficiente. Por favor, vuelve a intentarlo.")
-        return true  // Si el pago no se realizó, regresa y permite al usuario intentar nuevamente
-    }
-
-    // Preguntar si desea un tiquet
-    println("¿Deseas un tiquet? (si/no)")
-    val respuesta = scanner.nextLine().trim().toLowerCase()
-
-    if (respuesta == "si") {
-        imprimirTiquet(tipoDeBillete, zonas, numBilletes, precioTotal)
-    } else {
-        println("No se generará el tiquet.")
-    }
-
-    // Preguntar si desea continuar con otra compra
-    println("\n¿Deseas realizar otra compra? (si/no)")
-    val continuarCompra = scanner.nextLine().trim().toLowerCase()
-
-    return continuarCompra == "si"  // Si el usuario desea continuar, retorna true, sino, false
-}
-
-// Función para seleccionar el tipo de billete
-fun seleccionarTipoDeBillete(scanner: Scanner): String? {
-    val billetes = listOf("Billete sencillo", "TCasual", "TUsual", "TFamiliar", "TJoven")
-
-    var opcion: Int?
-
-    do {
-        println("\nSelecciona el tipo de billete:")
-        billetes.forEachIndexed { index, billete -> println("${index + 1}. $billete") }
-        println("0. Volver atrás")
-
-        opcion = scanner.nextLine().toIntOrNull()
-
-        // Si se elige la opción 0, regresa al inicio
-        if (opcion == 0) return null
-
-        // Si la opción es válida, se retorna el billete seleccionado
-        if (opcion != null && opcion in 1..billetes.size) {
-            return billetes[opcion - 1]
+            5 -> {
+                println("¿Deseas un tiquet? (si/no)")
+                val respuesta = scanner.nextLine().trim().lowercase()
+                if (respuesta == "si") {
+                    imprimirTiquet(tipoDeBillete!!, zonas!!, numBilletes!!, precioTotal!!)
+                } else {
+                    println("No se generará el tiquet.")
+                }
+                operacionActiva = false // Finaliza esta sesión
+            }
         }
-
-        println("Opción inválida. Por favor, inténtalo de nuevo.")
-
-    } while (opcion == null || opcion !in 0..billetes.size)  // Continua mientras la opción sea inválida
-
-    return null
+    }
 }
 
-// Función para seleccionar el número de zonas
-fun seleccionarZonas(scanner: Scanner): Int {
-    var zonas: Int?
+/**
+ * Funcion para selecionar el tipo de billete
+ * @author Bryan
+ * @version 1.0
+ *
+ */
+fun seleccionarTipoDeBillete(scanner: Scanner, valorAnterior: String?): String? {
+    val billetes = listOf("Billete sencillo", "TCasual", "TUsual", "TFamiliar", "TJoven")
+    println("\nSelecciona el tipo de billete:")
+    billetes.forEachIndexed { index, billete -> println("${index + 1}. $billete") }
+    println("0. Finalizar operación")
+    println("Seleccionado previamente: ${valorAnterior ?: "Ninguno"}")
 
+    val opcion = scanner.nextLine().toIntOrNull()
+    if (opcion == 0) return null
+    if (opcion != null && opcion in 1..billetes.size) {
+        val seleccion = billetes[opcion - 1]
+        println("Ha seleccionado la opción $opcion: $seleccion")
+        return billetes[opcion - 1]
+    }
+    println("Opción inválida. Por favor, inténtalo de nuevo.")
+    return seleccionarTipoDeBillete(scanner, valorAnterior)
+}
+
+/**
+ * Funcion para seleccionar las zonas
+ * @author Bryan
+ * @version 1.0
+ */
+fun seleccionarZonas(scanner: Scanner, valorAnterior: Int?): Int {
     println("\nSelecciona las zonas de distancia (1, 2 o 3):")
     println("0. Volver atrás")
-    zonas = scanner.nextLine().toIntOrNull()
+    println("Seleccionado previamente: ${valorAnterior ?: "Ninguna"}")
 
-    // Si el usuario quiere volver atrás
-    if (zonas == 0) {
-        return -1  // Retorna un valor especial para indicar que se desea volver atrás
-    }
-
+    val zonas = scanner.nextLine().toIntOrNull()
+    if (zonas == 0) return -1 // Indica que el usuario desea regresar al paso anterior
     if (zonas != null && zonas in 1..3) {
+        println("Ha seleccionado la opción $zonas: $zonas zona(s)")
         return zonas
     }
-
     println("Opción inválida. Por favor, inténtalo de nuevo.")
-    return seleccionarZonas(scanner)  // Vuelve a preguntar si la entrada es inválida
+    return seleccionarZonas(scanner, valorAnterior)
 }
 
-// Función para seleccionar el número de billetes
-fun seleccionarNumeroDeBilletes(scanner: Scanner): Int {
-    var numero: Int?
 
-    println("\n¿Cuántos billetes deseas comprar? (1-3):")
-    numero = scanner.nextLine().toIntOrNull()
+/**
+ * Funcion para selecccionar Cantidad de billetes de Metro
+ * @author Bryan
+ * @version1.0
+ */
+fun seleccionarNumeroDeBilletes(scanner: Scanner, valorAnterior: Int?): Int {
+    println("\n¿Cuántos billetes deseas comprar? (1-2-3):")
+    println("0. Volver atrás")
+    println("Seleccionado previamente: ${valorAnterior ?: "No se ha seleccionado nada"}")
 
+    val numero = scanner.nextLine().toIntOrNull()
+    if (numero == 0) return -1 // Indica que el usuario desea regresar al paso anterior
     if (numero != null && numero in 1..3) {
+        println("Ha seleccionado la opción $numero: $numero billete(s)")
         return numero
     }
-
     println("Opción inválida. Por favor, inténtalo de nuevo.")
-    return seleccionarNumeroDeBilletes(scanner)  // Vuelve a preguntar si la entrada es inválida
+    return seleccionarNumeroDeBilletes(scanner, valorAnterior)
 }
 
-// Función para calcular el precio total
+/**
+ * Funcion para Calcular el precio
+ * @Bryan
+ * @version1.0
+ */
 fun calcularPrecio(tipoDeBillete: String, zonas: Int, numBilletes: Int): Double {
     val preciosZona1 = mapOf(
         "Billete sencillo" to 2.40,
@@ -164,7 +203,11 @@ fun calcularPrecio(tipoDeBillete: String, zonas: Int, numBilletes: Int): Double 
     return precioPorBillete * multiplicador * numBilletes
 }
 
-// Función para realizar el pago
+/**
+ * Funcion para realizar el pago
+ * @author Bryan
+ * @version 1.0
+ */
 fun realizarPago(scanner: Scanner, precioTotal: Double): Boolean {
     var pagado = 0.0
     val monedasValidas = listOf(0.05, 0.10, 0.20, 0.50, 1.00, 2.00, 5.00, 10.00, 20.00, 50.00)
@@ -188,7 +231,11 @@ fun realizarPago(scanner: Scanner, precioTotal: Double): Boolean {
     return false
 }
 
-// Función para imprimir el tiquet
+/**
+ * funcion para imprimir ticket
+ * @author Mich
+ * @version 1.0
+ */
 fun imprimirTiquet(tipoDeBillete: String, zonas: Int, numBilletes: Int, precioTotal: Double) {
     println("\n--- Tiquet de compra ---")
     println("Tipo de billete: $tipoDeBillete")
