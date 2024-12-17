@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Assertions.*
 import java.io.ByteArrayInputStream
 import java.util.Scanner
 
-class MaquinaDeBilletesTest {
+class MainKtTestSeleccionarZonas {
 
     // Función auxiliar para simular la entrada
     private fun crearScannerSimulado(entrada: String): Scanner {
