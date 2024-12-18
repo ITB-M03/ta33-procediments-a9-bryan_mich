@@ -12,6 +12,7 @@ class MainKtTestCalcularPrecio {
         // Prueba con un billete sencillo, zona 1 y 2 billetes
         val precio = calcularPrecio("Billete sencillo", 1, 2)
         assertEquals(4.80, precio, "El precio debería ser 4.80€")
+
     }
 
     @Test

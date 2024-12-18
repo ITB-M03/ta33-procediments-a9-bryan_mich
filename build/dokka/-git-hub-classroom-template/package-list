@@ -1,5 +1,18 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:////PointingToDeclaration/-git-hub-classroom-template/[root]/index.html
+$dokka.location:/MainKt///PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/index.html
+$dokka.location:/MainKt/abrirScanner/#/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/abrir-scanner.html
+$dokka.location:/MainKt/calcularPrecio/#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/calcular-precio.html
+$dokka.location:/MainKt/cerrarScanner/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/cerrar-scanner.html
+$dokka.location:/MainKt/gestionarMaquina/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/gestionar-maquina.html
+$dokka.location:/MainKt/imprimirTiquet/#kotlin.String#kotlin.Int#kotlin.Int#kotlin.Double/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/imprimir-tiquet.html
+$dokka.location:/MainKt/iniciarMaquinaDeBilletes/#java.util.Scanner/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/iniciar-maquina-de-billetes.html
+$dokka.location:/MainKt/main/#/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/main.html
+$dokka.location:/MainKt/realizarPago/#java.util.Scanner#kotlin.Double/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/realizar-pago.html
+$dokka.location:/MainKt/seleccionarNumeroDeBilletes/#java.util.Scanner#kotlin.Int?/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/seleccionar-numero-de-billetes.html
+$dokka.location:/MainKt/seleccionarTipoDeBillete/#java.util.Scanner#kotlin.String?/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/seleccionar-tipo-de-billete.html
+$dokka.location:/MainKt/seleccionarZonas/#java.util.Scanner#kotlin.Int?/PointingToDeclaration/-git-hub-classroom-template/[root]/-main-kt/seleccionar-zonas.html
 $dokka.location:interfaces////PointingToDeclaration/-git-hub-classroom-template/interfaces/index.html
 $dokka.location:interfaces/MyInterface///PointingToDeclaration/-git-hub-classroom-template/interfaces/-my-interface/index.html
 $dokka.location:models////PointingToDeclaration/-git-hub-classroom-template/models/index.html

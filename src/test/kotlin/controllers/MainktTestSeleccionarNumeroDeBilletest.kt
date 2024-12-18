@@ -9,6 +9,7 @@ class MainktTestSeleccionarNumeroDeBilletest {
     fun crearScannerSimulado(entrada: String): Scanner {
         val inputStream = ByteArrayInputStream(entrada.toByteArray())
         return Scanner(inputStream)
+
     }
 
     @Test

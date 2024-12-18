@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.*
 import realizarPago
 import java.util.*
 
-class MainKtTest {
+class MainKtTestRealizarPago {
 
     @Test
     fun realizarPagoPagoCorrecto() {
@@ -16,16 +16,19 @@ class MainKtTest {
         val resultado = realizarPago(scanner, precioTotal)
 
         assertTrue(resultado, "El pago debería haberse realizado correctamente")
+
     }
 
     @Test
     fun realizarPagoPagoInsuficiente() {
+
         val scanner = Scanner("5.00\n") // Simula que el usuario paga 5.00€ solo
         val precioTotal = 9.50 // El total es mayor que lo pagado
 
         val resultado = realizarPago(scanner, precioTotal)
 
         assertFalse(resultado, "El pago debería haber fallado porque el total es insuficiente")
+
     }
 
     @Test
